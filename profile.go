@@ -104,8 +104,8 @@ func NewProfile(filename string) (*Profile, error) {
 
 // Initializes a profile with the default values
 func (profile *Profile) InitDefaultProfile() {
-	profile.MarketRefresh = 600 // Market data gets fetched every 600s (1 time per 5 minutes).
-	profile.QuotesRefresh = 600 // Stock quotes get updated every 600s (1 time per 5 minutes).
+	profile.MarketRefresh = 30 // Market data gets fetched every 30s (1 time per 30 seconds).
+	profile.QuotesRefresh = 30 // Stock quotes get updated every 30s (1 time per 30 seconds).
 	profile.Grouped = false     // Stock quotes are *not* grouped by advancing/declining.
 	profile.Tickers = []string{`AAPL`, `C`, `GOOG`, `IBM`, `KO`, `ORCL`, `V`}
 	profile.SortColumn = 0   // Stock quotes are sorted by ticker name.

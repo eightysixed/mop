@@ -20,9 +20,9 @@ var currencies = map[string]string{
 	"RUB": "₽",
 	"GBP": "£",
 	"GBp": "p",
-	"SEK": "kr",
+//	"SEK": "kr",
 	"EUR": "€",
-	"JPY": "¥",
+//	"JPY": "¥",
 }
 
 // Column describes formatting rules for individual column within the list
@@ -82,8 +82,7 @@ func (layout *Layout) Market(market *Market) string {
 	}
 
 	highlight(market.Dow, market.Sp500, market.Nasdaq,
-		market.Tokyo, market.HongKong, market.London, market.Frankfurt,
-		market.Yield, market.Oil, market.Euro, market.Yen, market.Gold)
+		market.Yield, market.Oil, market.Euro, market.Gold)
 	buffer := new(bytes.Buffer)
 	layout.marketTemplate.Execute(buffer, market)
 
@@ -226,9 +225,8 @@ func (layout *Layout) pad(str string, width int) string {
 
 // -----------------------------------------------------------------------------
 func buildMarketTemplate() *template.Template {
-	markup := `<tag>Dow</> {{.Dow.change}} ({{.Dow.percent}}) at {{.Dow.latest}} <tag>S&P 500</> {{.Sp500.change}} ({{.Sp500.percent}}) at {{.Sp500.latest}} <tag>NASDAQ</> {{.Nasdaq.change}} ({{.Nasdaq.percent}}) at {{.Nasdaq.latest}}
-<tag>Tokyo</> {{.Tokyo.change}} ({{.Tokyo.percent}}) at {{.Tokyo.latest}} <tag>HK</> {{.HongKong.change}} ({{.HongKong.percent}}) at {{.HongKong.latest}} <tag>London</> {{.London.change}} ({{.London.percent}}) at {{.London.latest}} <tag>Frankfurt</> {{.Frankfurt.change}} ({{.Frankfurt.percent}}) at {{.Frankfurt.latest}} {{if .IsClosed}}<right>U.S. markets closed</right>{{end}}
-<tag>10-Year Yield</> {{.Yield.latest}} ({{.Yield.change}}) <tag>Euro</> ${{.Euro.latest}} ({{.Euro.change}}) <tag>Yen</> ¥{{.Yen.latest}} ({{.Yen.change}}) <tag>Oil</> ${{.Oil.latest}} ({{.Oil.change}}) <tag>Gold</> ${{.Gold.latest}} ({{.Gold.change}})`
+	markup := `<tag>Dow <green>+{{.Dow.change}} ({{.Dow.percent}}) at <yellow>{{.Dow.latest}}</> | <tag>S&P <green>+</>{{.Sp500.change}} ({{.Sp500.percent}}) at <tag>{{.Sp500.latest}}</> | <tag>NASDAQ <green>+</>{{.Nasdaq.change}} ({{.Nasdaq.percent}}) at {{.Nasdaq.latest}} {{if .IsClosed}}<right>U.S. markets closed</right>{{end}}
+<tag>Euro</> ${{.Euro.latest}} ({{.Euro.change}}) <tag>Oil</> ${{.Oil.latest}} ({{.Oil.change}}) <tag>Gold</> ${{.Gold.latest}} ({{.Gold.change}})`
 
 	return template.Must(template.New(`market`).Parse(markup))
 }

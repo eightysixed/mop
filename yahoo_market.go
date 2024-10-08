@@ -21,13 +21,13 @@ type Market struct {
 	Dow       map[string]string // Hash of Dow Jones indicators.
 	Nasdaq    map[string]string // Hash of NASDAQ indicators.
 	Sp500     map[string]string // Hash of S&P 500 indicators.
-	Tokyo     map[string]string
-	HongKong  map[string]string
-	London    map[string]string
-	Frankfurt map[string]string
+//	Tokyo     map[string]string
+//	HongKong  map[string]string
+//	London    map[string]string
+//	Frankfurt map[string]string
 	Yield     map[string]string
 	Oil       map[string]string
-	Yen       map[string]string
+//	Yen       map[string]string
 	Euro      map[string]string
 	Gold      map[string]string
 	errors    string // Error(s), if any.
@@ -44,14 +44,14 @@ func NewMarket() *Market {
 	market.Nasdaq = make(map[string]string)
 	market.Sp500 = make(map[string]string)
 
-	market.Tokyo = make(map[string]string)
-	market.HongKong = make(map[string]string)
-	market.London = make(map[string]string)
-	market.Frankfurt = make(map[string]string)
+//	market.Tokyo = make(map[string]string)
+//	market.HongKong = make(map[string]string)
+//	market.London = make(map[string]string)
+//	market.Frankfurt = make(map[string]string)
 
 	market.Yield = make(map[string]string)
 	market.Oil = make(map[string]string)
-	market.Yen = make(map[string]string)
+//	market.Yen = make(map[string]string)
 	market.Euro = make(map[string]string)
 	market.Gold = make(map[string]string)
 
@@ -131,11 +131,11 @@ func assign(results []map[string]interface{}, position int, changeAsPercent bool
 	out[`change`] = float2Str(results[position]["regularMarketChange"].(float64))
 	out[`latest`] = float2Str(results[position]["regularMarketPrice"].(float64))
 	if changeAsPercent {
-		out[`change`] = float2Str(results[position]["regularMarketChangePercent"].(float64)) + `%`
+		out[`change`] =  float2Str(results[position]["regularMarketChangePercent"].(float64))
 	} else {
-		out[`percent`] = float2Str(results[position]["regularMarketChangePercent"].(float64))
+		out[`percent`] = float2Str(results[position]["regularMarketChangePercent"].(float64)) + `%`
 	}
-	return out
+        return out
 }
 
 // -----------------------------------------------------------------------------
@@ -149,15 +149,15 @@ func (market *Market) extract(body []byte) *Market {
 	market.Dow = assign(results, 0, false)
 	market.Nasdaq = assign(results, 1, false)
 	market.Sp500 = assign(results, 2, false)
-	market.Tokyo = assign(results, 3, false)
-	market.HongKong = assign(results, 4, false)
-	market.London = assign(results, 5, false)
-	market.Frankfurt = assign(results, 6, false)
+//	market.Tokyo = assign(results, 3, false)
+//	market.HongKong = assign(results, 4, false)
+//	market.London = assign(results, 5, false)
+//	market.Frankfurt = assign(results, 6, false)
 	market.Yield[`name`] = `10-year Yield`
 	market.Yield = assign(results, 7, false)
 
 	market.Oil = assign(results, 8, true)
-	market.Yen = assign(results, 9, true)
+//	market.Yen = assign(results, 9, true)
 	market.Euro = assign(results, 10, true)
 	market.Gold = assign(results, 11, true)
 
